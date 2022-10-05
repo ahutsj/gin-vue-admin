@@ -15,8 +15,9 @@ type server interface {
 }
 
 func RunWindowsServer() {
+	// 如果配置中打算用到redis，则需要初始化
 	if global.GVA_CONFIG.System.UseMultipoint || global.GVA_CONFIG.System.UseRedis {
-		// 初始化redis服务
+		// 初始化redis服务 done
 		initialize.Redis()
 	}
 

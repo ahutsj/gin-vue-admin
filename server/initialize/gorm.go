@@ -13,6 +13,7 @@ import (
 
 // Gorm 初始化数据库并产生数据库全局变量
 // Author SliverHorn
+// 默认 mysql
 func Gorm() *gorm.DB {
 	switch global.GVA_CONFIG.System.DbType {
 	case "mysql":

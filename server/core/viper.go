@@ -18,9 +18,15 @@ import (
 // Viper //
 // 优先级: 命令行 > 环境变量 > 默认值
 // Author [SliverHorn](https://github.com/SliverHorn)
+
+// Viper教程学习
 func Viper(path ...string) *viper.Viper {
 	var config string
 
+	// 导入config.yaml
+	// 传入的path优先级最高，如果没有path，则查看命令行参数 -c，存在则赋值给config
+	// 否则 判断 internal.ConfigEnv 常量存储的环境变量是否为空，存在则赋值给config
+	// 否则 根据gin.Mode 赋值给config
 	if len(path) == 0 {
 		flag.StringVar(&config, "c", "", "choose config file.")
 		flag.Parse()
@@ -52,6 +58,8 @@ func Viper(path ...string) *viper.Viper {
 	v := viper.New()
 	v.SetConfigFile(config)
 	v.SetConfigType("yaml")
+
+	// if err == nil，则 v.config = config
 	err := v.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
